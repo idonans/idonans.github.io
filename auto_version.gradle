@@ -4,7 +4,7 @@ def int getAutoVersionCode() {
     return cmd.execute().text.trim().toInteger()
 }
 
-// 使用距离最近的标签名 + "." + 版本好 作为版本名称, 通常标签使用如 0.1, 1.0, 1.89等命名方式
+// 使用距离最近的标签名 + "." + 版本号 作为版本名称, 通常标签使用如 0.1, 1.0, 1.89等命名方式
 def String getAutoVersionName(int versionCode) {
     def cmd = 'git describe --tags'
     def versionNamePrefix = cmd.execute().text.trim()
