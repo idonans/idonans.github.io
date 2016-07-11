@@ -1,0 +1,23 @@
+// 使用 git commit 总数作为 version code
+def int getAutoVersionCode() {
+    def cmd = "git rev-list HEAD --count"
+    return cmd.execute().text.trim().toInteger()
+}
+
+// 使用距离最近的标签名 + "." + 版本好 作为版本名称, 通常标签使用如 0.1, 1.0, 1.89等命名方式
+def String getAutoVersionName(int versionCode) {
+    def cmd = 'git describe --tags'
+    def versionNamePrefix = cmd.execute().text.trim()
+    return versionNamePrefix + "." + versionCode
+}
+
+def autoVersionCode = getAutoVersionCode();
+def autoVersionName = getAutoVersionName(autoVersionCode);
+
+// 例如：
+// 当前 commit 总数是 208, 距离最后一个提交最近的 tag　是 0.1, 
+// 那么：
+// autoVersionCode = 208
+// autoVersionName = 0.1.208
+
+
